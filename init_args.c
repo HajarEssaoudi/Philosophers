@@ -6,7 +6,7 @@
 /*   By: hes-saou <hes-saou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 13:49:55 by hes-saou          #+#    #+#             */
-/*   Updated: 2025/05/18 02:43:52 by hes-saou         ###   ########.fr       */
+/*   Updated: 2025/05/18 22:30:33 by hes-saou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	init_philo(t_data *data)
 		data->philos[i].last_time_eat = data->start_time;
 		data->philos[i].left_fork = &data->forks[i];
 		data->philos[i].right_fork = &data->forks[(i + 1) % data->num_philo];
-
+		data->philos[i].data = data;
 		i++;
 	}
 }

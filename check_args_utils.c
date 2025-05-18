@@ -6,7 +6,7 @@
 /*   By: hes-saou <hes-saou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 20:15:08 by hes-saou          #+#    #+#             */
-/*   Updated: 2025/05/17 13:49:36 by hes-saou         ###   ########.fr       */
+/*   Updated: 2025/05/18 21:42:17 by hes-saou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	verify_sign(int ac, char **av)
 	i = 1;
 	while (i < ac)
 	{
-		if (ft_atoi(av[i]) <= 0)
+		if (ft_atoi(av[i]) < 0)
 			return (0);
 		i++;
 	}
