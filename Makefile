@@ -1,9 +1,9 @@
 NAME = philo
 CC = cc
-CFLAGS = -g
+CFLAGS = -g -pthread
 # -Werror -Wextra -Wall -g
 
-SRCS = main.c check_args_utils.c \
+SRCS = main.c check_args_utils.c init_args.c utils.c\
 
 OBJS = $(SRCS:.c=.o)
 

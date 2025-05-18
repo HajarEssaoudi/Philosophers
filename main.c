@@ -6,50 +6,42 @@
 /*   By: hes-saou <hes-saou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 10:01:55 by hes-saou          #+#    #+#             */
-/*   Updated: 2025/05/16 22:25:26 by hes-saou         ###   ########.fr       */
+/*   Updated: 2025/05/18 02:54:40 by hes-saou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	print_error(int flag)
+void	clean_up(t_data *data)
 {
-	if (flag == 1)
-		ft_putstr_fd("number of arguments is incorrect\n", 2);
-	if (flag == 2)
-		ft_putstr_fd("the arguments should be numbers\n", 2);
-	if (flag == 3)
-		ft_putstr_fd("the arguments should be integers\n", 2);
-}
+	int	i;
 
-int	check_args(int ac, char **av)
-{
-	if (ac != 5 && ac != 6)
+	i = 0;
+	if (data->philos)
+		free(data->philos);
+	if (data->forks)
 	{
-		print_error(1);
-		return (0);
+		// while (i < data->num_philo)
+		// {
+		// 	pthread_mutex_destroy(&data->forks[i]);
+		// 	i++;
+		// }
+	free(data->forks);
 	}
-	if (!verify_num(ac, av))
-	{
-		print_error(2);
-		return (0);
-	}
-	if (!verify_sign(ac, av))
-	{
-		print_error(3);
-		return (0);
-	}
-	return (1);
+		
 }
 
 int	main(int ac, char **av)
 {
-	t_philo	data;
+	t_data	data;
 
-	memset(&data, 0, sizeof(t_philo));
+	memset(&data, 0, sizeof(t_data));
 	if (!check_args(ac, av))
-	{
 		return (1);
-	}
+	init_args(&data, av);
+	init_philo(&data);
+	create_philos(&data);
+	printf("time to start ===> %lld\n", data.start_time);
 	printf("philo ok\n");
+	clean_up(&data);
 }
