@@ -6,7 +6,7 @@
 /*   By: hes-saou <hes-saou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 10:02:10 by hes-saou          #+#    #+#             */
-/*   Updated: 2025/05/18 02:41:04 by hes-saou         ###   ########.fr       */
+/*   Updated: 2025/05/18 15:58:56 by hes-saou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct s_philosopher
 	int				meals_eaten;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
+	pthread_mutex_t print_mutex;
 }					t_philosopher;
 
 typedef struct s_data
@@ -39,6 +40,7 @@ typedef struct s_data
 	int				time_must_eat;
 	long long		start_time;
 	pthread_mutex_t	*forks;
+	
 	t_philosopher	*philos;
 }					t_data;
 
@@ -55,4 +57,8 @@ void				init_args(t_data *data, char **av);
 void				init_philo(t_data *data);
 void				clean_up(t_data *data);
 
+
+
+void	create_philos(t_data *data);
+void	destroy_philos(t_data *data);
 #endif

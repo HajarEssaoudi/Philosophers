@@ -3,7 +3,7 @@ CC = cc
 CFLAGS = -g -pthread
 # -Werror -Wextra -Wall -g
 
-SRCS = main.c check_args_utils.c init_args.c utils.c\
+SRCS = main.c check_args_utils.c init_args.c utils.c threads.c philos.c\
 
 OBJS = $(SRCS:.c=.o)
 

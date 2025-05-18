@@ -6,7 +6,7 @@
 /*   By: hes-saou <hes-saou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 10:01:55 by hes-saou          #+#    #+#             */
-/*   Updated: 2025/05/18 02:54:40 by hes-saou         ###   ########.fr       */
+/*   Updated: 2025/05/18 14:43:05 by hes-saou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	main(int ac, char **av)
 	init_args(&data, av);
 	init_philo(&data);
 	create_philos(&data);
-	printf("time to start ===> %lld\n", data.start_time);
+	destroy_philos(&data);
 	printf("philo ok\n");
 	clean_up(&data);
 }
