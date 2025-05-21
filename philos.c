@@ -6,7 +6,7 @@
 /*   By: hes-saou <hes-saou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/18 02:54:50 by hes-saou          #+#    #+#             */
-/*   Updated: 2025/05/19 00:33:40 by hes-saou         ###   ########.fr       */
+/*   Updated: 2025/05/21 16:51:59 by hes-saou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,36 @@ void	philo_eat(t_philosopher *philo)
 {
 	pthread_mutex_lock(&philo->data->print_mutex);
 	printf("%lld %d is eating\n", (get_time() - philo->data->start_time), philo->id);
-	printf("%lld %d is eating\n", (get_time() - philo->data->start_time), philo->id);
+	usleep(philo->data->time_to_eat);
 	pthread_mutex_unlock(&philo->data->print_mutex);
 	philo->last_time_eat = get_time();
 	philo->meals_eaten++;
 	drop_fork(philo);
 }
 
+void	philo_dies(t_philosopher *philo)
+{
+	pthread_mutex_lock(&philo->data->print_mutex);
+	printf("%lld %d died\n", (get_time() - philo->data->start_time), philo->id);
+	pthread_mutex_unlock(&philo->data->print_mutex);
+}
 
+void	philo_think(t_philosopher *philo)
+{
+	pthread_mutex_lock(&philo->data->print_mutex);
+	printf("%lld %d is thinking\n", get_time() - philo->data->start_time, philo->id);
+	pthread_mutex_unlock(&philo->data->print_mutex);
+	usleep(philo->data->time_to_eat - philo->data->time_to_sleep);
+}
+
+
+void	philo_sleep(t_philosopher *philo)
+{
+	pthread_mutex_lock(&philo->data->print_mutex);
+	printf("%lld %d is sleeping\n", (get_time() - philo->data->start_time), philo->id);
+	pthread_mutex_unlock(&philo->data->print_mutex);
+	usleep(philo->data->time_to_sleep);
+}
 
 void	*philos_routine(void *arg)
 {
@@ -56,6 +78,17 @@ void	*philos_routine(void *arg)
 	{
 		take_fork(philo);
 		philo_eat(philo);
+		philo_sleep(philo);
+		philo_think(philo);
+		drop_fork(philo);
+		if (philo->meals_eaten == philo->data->time_must_eat)
+		{
+			return NULL;
+		}
+		if (philo->last_time_eat > philo->data->time_to_die)
+		{
+			philo_dies(philo);
+		}
 	}
 	// drop_fork(philo);
 	return (NULL);

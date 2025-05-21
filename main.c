@@ -6,7 +6,7 @@
 /*   By: hes-saou <hes-saou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 10:01:55 by hes-saou          #+#    #+#             */
-/*   Updated: 2025/05/18 14:43:05 by hes-saou         ###   ########.fr       */
+/*   Updated: 2025/05/21 16:20:52 by hes-saou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,5 @@ int	main(int ac, char **av)
 	init_philo(&data);
 	create_philos(&data);
 	destroy_philos(&data);
-	printf("philo ok\n");
 	clean_up(&data);
 }
