@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 13:49:55 by hes-saou          #+#    #+#             */
-/*   Updated: 2025/05/22 00:56:26 by root             ###   ########.fr       */
+/*   Updated: 2025/05/22 02:04:38 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,13 @@ void	init_args(t_data *data, char **av)
 		data->time_must_eat = -1;
 	data->start_time = get_time_now(data);
 	data->someone_died = 0;
+	data->death_check = malloc(sizeof(pthread_mutex_t));
+	if (!data->death_check)
+	{
+		printf("failed to allocate\n");
+		clean_up(data);
+		exit(1);
+	}
 	data->forks = malloc(sizeof(pthread_mutex_t) * data->num_philo);
 	while(i < data->num_philo)
 	{

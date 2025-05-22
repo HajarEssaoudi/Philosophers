@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 10:02:10 by hes-saou          #+#    #+#             */
-/*   Updated: 2025/05/22 01:13:51 by root             ###   ########.fr       */
+/*   Updated: 2025/05/22 02:06:00 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ struct s_data;
 typedef struct s_philosopher
 {
 	int				id;
-	pthread_t		*thread;
+	pthread_t		thread;
 	long long		last_time_eat;
 	int				meals_eaten;
 	struct s_data	*data;
@@ -46,6 +46,7 @@ typedef struct s_data
 	pthread_mutex_t print_mutex;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	*death_check;
+	pthread_t death_checker;
 	t_philosopher	*philos;
 }					t_data;
 
