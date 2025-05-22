@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hes-saou <hes-saou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 10:01:55 by hes-saou          #+#    #+#             */
-/*   Updated: 2025/05/21 16:20:52 by hes-saou         ###   ########.fr       */
+/*   Updated: 2025/05/21 22:38:04 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,19 @@
 
 void	clean_up(t_data *data)
 {
-	int	i;
+	int i = 0;
 
-	i = 0;
-	if (data->philos)
-		free(data->philos);
-	if (data->forks)
+	while (i < data->num_philo)
 	{
-		// while (i < data->num_philo)
-		// {
-		// 	pthread_mutex_destroy(&data->forks[i]);
-		// 	i++;
-		// }
-	free(data->forks);
+		if (data->philos[i].meal_mutex)
+		{
+			pthread_mutex_destroy(data->philos[i].meal_mutex);
+			free(data->philos[i].meal_mutex);
+		}
+		i++;
 	}
-		
+	free(data->forks);
+	free(data->philos);
 }
 
 int	main(int ac, char **av)

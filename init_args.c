@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_args.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hes-saou <hes-saou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 13:49:55 by hes-saou          #+#    #+#             */
-/*   Updated: 2025/05/18 22:30:33 by hes-saou         ###   ########.fr       */
+/*   Updated: 2025/05/22 00:56:26 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ void	init_args(t_data *data, char **av)
 		data->time_must_eat = ft_atoi(av[5]);
 	else
 		data->time_must_eat = -1;
-	data->start_time = get_time();
+	data->start_time = get_time_now(data);
+	data->someone_died = 0;
 	data->forks = malloc(sizeof(pthread_mutex_t) * data->num_philo);
 	while(i < data->num_philo)
 	{
@@ -54,6 +55,14 @@ void	init_philo(t_data *data)
 		data->philos[i].left_fork = &data->forks[i];
 		data->philos[i].right_fork = &data->forks[(i + 1) % data->num_philo];
 		data->philos[i].data = data;
+		data->philos[i].meal_mutex = malloc(sizeof(pthread_mutex_t));
+		if (!data->philos[i].meal_mutex)
+		{
+			printf("failed to allocate\n");
+			clean_up(data);
+			exit(1);
+		}
+		pthread_mutex_init(data->philos[i].meal_mutex, NULL);
 		i++;
 	}
 }
