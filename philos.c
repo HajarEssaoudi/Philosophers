@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philos.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hes-saou <hes-saou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/18 02:54:50 by hes-saou          #+#    #+#             */
-/*   Updated: 2025/05/22 02:36:34 by root             ###   ########.fr       */
+/*   Updated: 2025/05/23 23:57:11 by hes-saou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,24 +57,29 @@ void	philo_eat(t_philosopher *philo)
 {
 	if (philo_died(philo->data))
 		return ;
-	pthread_mutex_lock(&philo->data->print_mutex);
-	printf("%lld %d is eating\n", (get_time_now(philo->data)), philo->id);
-	pthread_mutex_unlock(&philo->data->print_mutex);
 	pthread_mutex_lock(philo->meal_mutex);
 	philo->last_time_eat = get_time_now(philo->data);
 	philo->meals_eaten++;
 	pthread_mutex_unlock(philo->meal_mutex);
+	pthread_mutex_lock(&philo->data->print_mutex);
+	printf("%lld %d is eating\n", (get_time_now(philo->data)), philo->id);
+	pthread_mutex_unlock(&philo->data->print_mutex);
 	usleep(philo->data->time_to_eat * 1000);
 }
 
 void	philo_think(t_philosopher *philo)
 {
+	long long time_to_think;
+
+	time_to_think = 2 * philo->data->time_to_eat;
+	if (time_to_think < 0)
+		time_to_think = 0;
 	if (philo_died(philo->data))
 		return ;
 	pthread_mutex_lock(&philo->data->print_mutex);
 	printf("%lld %d is thinking\n", get_time_now(philo->data), philo->id);
 	pthread_mutex_unlock(&philo->data->print_mutex);
-	usleep(100);
+	usleep(time_to_think * 1000 * 0.3);
 }
 
 void	philo_sleep(t_philosopher *philo)
