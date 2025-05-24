@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_args.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hes-saou <hes-saou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 13:49:55 by hes-saou          #+#    #+#             */
-/*   Updated: 2025/05/22 02:04:38 by root             ###   ########.fr       */
+/*   Updated: 2025/05/24 12:01:56 by hes-saou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	init_philo(t_data *data)
 		data->philos[i].right_fork = &data->forks[(i + 1) % data->num_philo];
 		data->philos[i].data = data;
 		data->philos[i].meal_mutex = malloc(sizeof(pthread_mutex_t));
+		data->philos[i].full = 0;
 		if (!data->philos[i].meal_mutex)
 		{
 			printf("failed to allocate\n");

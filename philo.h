@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hes-saou <hes-saou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 10:02:10 by hes-saou          #+#    #+#             */
-/*   Updated: 2025/05/22 02:06:00 by root             ###   ########.fr       */
+/*   Updated: 2025/05/24 12:01:07 by hes-saou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ typedef struct s_philosopher
 	int				id;
 	pthread_t		thread;
 	long long		last_time_eat;
-	int				meals_eaten;
+	long			meals_eaten;
+	int				full;
 	struct s_data	*data;
 	pthread_mutex_t	*meal_mutex;
 	pthread_mutex_t	*left_fork;

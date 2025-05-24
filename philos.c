@@ -6,7 +6,7 @@
 /*   By: hes-saou <hes-saou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/18 02:54:50 by hes-saou          #+#    #+#             */
-/*   Updated: 2025/05/23 23:57:11 by hes-saou         ###   ########.fr       */
+/*   Updated: 2025/05/24 12:05:27 by hes-saou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,14 @@ void	philo_eat(t_philosopher *philo)
 	pthread_mutex_lock(philo->meal_mutex);
 	philo->last_time_eat = get_time_now(philo->data);
 	philo->meals_eaten++;
+	if (philo->data->time_must_eat > 0
+	&& philo->meals_eaten >= philo->data->time_must_eat)
+	{
+		philo->full = 1;
+		return;
+	}
 	pthread_mutex_unlock(philo->meal_mutex);
+	
 	pthread_mutex_lock(&philo->data->print_mutex);
 	printf("%lld %d is eating\n", (get_time_now(philo->data)), philo->id);
 	pthread_mutex_unlock(&philo->data->print_mutex);
@@ -97,9 +104,10 @@ void	*philos_routine(void *arg)
 	t_philosopher *philo = (t_philosopher *)arg;
 	while(!philo_died(philo->data))
 	{
-		if (philo->data->time_must_eat > 0
-			&& philo->meals_eaten >= philo->data->time_must_eat)
+		if (philo->full == 1)
+		{
 			break;
+		}
 		take_fork(philo);
 		philo_eat(philo);
 		drop_fork(philo);
